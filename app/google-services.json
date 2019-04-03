@@ -1,0 +1,60 @@
+{
+  "project_info": {
+    "project_number": "139388239511",
+    "firebase_url": "https://room8-4357b.firebaseio.com",
+    "project_id": "room8-4357b",
+    "storage_bucket": "room8-4357b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:139388239511:android:fd017999471cc2e0",
+        "android_client_info": {
+          "package_name": "com.example.room8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "139388239511-2gelgc6qbnaufs37d8p4bnuq6v1fe7gr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.room8",
+            "certificate_hash": "b29ceecd03e99f526ed3c3906f4078bfbbe0ff1d"
+          }
+        },
+        {
+          "client_id": "139388239511-hjn9susvbbano6sqsu3kk7ms5ul74in0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.room8",
+            "certificate_hash": "f5f6cce3be83269c78b15509766c378229ac0f4e"
+          }
+        },
+        {
+          "client_id": "139388239511-iih8tfh30k8iiqr3q8nel349fsilsc18.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.room8",
+            "certificate_hash": "0ba13a6500fd51f83171a31c7e29a46ebf9f71b0"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj03_9yK3u7WkrCM2cQs_z01MJMFMRrio"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "139388239511-cflqjm9gun6ti1kmb3biov5jpag8h4se.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
