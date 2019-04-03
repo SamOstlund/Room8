@@ -12,6 +12,7 @@
     tools:context=".LoginActivity">
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -22,8 +23,8 @@
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="382dp"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -75,4 +76,11 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_register" />
+
 </LinearLayout>
