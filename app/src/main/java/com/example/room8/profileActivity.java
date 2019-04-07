@@ -1,47 +1,38 @@
 package com.example.room8;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
-
-    private TextView mTextMessage;
-
-
-
+public class profileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        mTextMessage = findViewById(R.id.message);
+        setContentView(R.layout.activity_profile);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         Menu menu = navigation.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
-
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch(menuItem.getItemId())
                 {
                     case R.id.navigation_profile:
-                        Intent intent = new Intent(MainActivity.this, profileActivity.class);
-                        startActivity(intent);
                         break;
 
                     case R.id.navigation_home:
+                        Intent intent2 = new Intent(profileActivity.this, MainActivity.class);
+                        startActivity(intent2);
                         break;
 
                     case R.id.navigation_messaging:
-                        Intent intent3 = new Intent(MainActivity.this, messaging.class);
+                        Intent intent3 = new Intent(profileActivity.this, messaging.class);
                         startActivity(intent3);
                         break;
                 }
@@ -49,10 +40,5 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
-
-
     }
-
 }
