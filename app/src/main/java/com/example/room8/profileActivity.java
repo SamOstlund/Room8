@@ -16,6 +16,9 @@ public class profileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         Menu menu = navigation.getMenu();
+
+
+        //Setting up the navigation bar at the bottom to go to the correct page when clicked. I also highlight the chosen page so the user knows where they are in the app.
         MenuItem menuItem = menu.getItem(0);
         menuItem.setChecked(true);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
