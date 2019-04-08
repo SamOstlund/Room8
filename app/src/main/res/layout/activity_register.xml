@@ -9,14 +9,43 @@
     <LinearLayout
         android:layout_width="395dp"
         android:layout_height="715dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/firstNameBox"
             android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:text="TextView" />
+            android:layout_height="50dp"
+            android:hint="First Name" />
+
+        <TextView
+            android:id="@+id/lastNameBox"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Last Name" />
+
+        <EditText
+            android:id="@+id/ageBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberSigned"
+            android:hint="Age (18+)"
+            android:autofillHints="" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="SUBMIT" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
