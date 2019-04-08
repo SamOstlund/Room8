@@ -63,10 +63,10 @@ public class LoginActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mEmailView = findViewById(R.id.email);
 
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView =  findViewById(R.id.password);
 
 
 
@@ -79,18 +79,18 @@ public class LoginActivity extends AppCompatActivity  {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
-                    return;
+
                 }
             }
         };
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton =  findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                attemptLogin();
             }
         });
-        Button register = (Button) findViewById(R.id.registerButton);
+        Button register =  findViewById(R.id.registerButton);
         register.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity  {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
-                                return;
+
                             } else {
                                 Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                                 startActivity(intent);
@@ -210,7 +210,7 @@ public class LoginActivity extends AppCompatActivity  {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
-                                return;
+
                             } else {
                                 Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                                 startActivity(intent);
