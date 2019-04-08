@@ -17,7 +17,7 @@
         <activity android:name=".messaging"></activity>
         <activity android:name=".profileActivity" />
         <activity android:name=".LoginActivity">
-            android:label="@string/title_activity_login">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
