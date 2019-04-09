@@ -57,7 +57,7 @@ public class registerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Register();
-
+                startActivity(new Intent(registerActivity.this, profileActivity.class));
                 /*AddData();
                 if (isEmailValid(email.getText().toString().trim()) && isPasswordValid(password.getText().toString().trim())){
                     Register();
