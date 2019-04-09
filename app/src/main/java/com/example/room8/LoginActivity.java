@@ -92,13 +92,16 @@ public class LoginActivity extends AppCompatActivity  {
         register.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-             attemptRegister();
+
+                Intent intent = new Intent(LoginActivity.this, registerActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
-    private void attemptRegister(){
+   /* private void attemptRegister(){
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -157,7 +160,7 @@ public class LoginActivity extends AppCompatActivity  {
 
         }
 
-    }
+    }*/
     private void attemptLogin() {
 
 

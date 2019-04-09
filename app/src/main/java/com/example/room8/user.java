@@ -4,14 +4,14 @@ public class user
 {
 
 
-   String firstName;
-   String lastName;
-   int age;
-   int zipcode;
-   String bio;
-   int maxPrice;
-   int minPrice;
-   String ID;
+  private String firstName;
+ private  String lastName;
+  private int age;
+  private int zipcode;
+private   String bio;
+private    int maxPrice;
+  private int minPrice;
+   private String ID;
 
    public user(String first, String last, int ag, int zip, String biography, int max, int min, String uniqueID)
    {
