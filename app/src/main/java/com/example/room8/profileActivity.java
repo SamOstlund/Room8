@@ -21,7 +21,7 @@ public class profileActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     DatabaseReference databaseReference;
     private FirebaseUser loggedInUser;
-    private TextView nameBox, ageBox, bioBox;
+    private TextView nameBox, ageBox, bioBox, nameIDBox, ageIDBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -63,6 +63,11 @@ public class profileActivity extends AppCompatActivity
         nameBox = findViewById(R.id.nameBoxProfile);
         ageBox = findViewById(R.id.ageBox);
         bioBox = findViewById(R.id.bioBox);
+        nameIDBox = findViewById(R.id.nameIDBox);
+        ageIDBox = findViewById(R.id.ageIDBox);
+
+        nameIDBox.setText("Name: ");
+        ageIDBox.setText("Age: ");
 
 
         mAuth = FirebaseAuth.getInstance();
