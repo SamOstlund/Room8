@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#184a8a"
     tools:context=".profileActivity">
 
     <android.support.design.widget.BottomNavigationView
@@ -31,6 +32,7 @@
         android:layout_width="150dp"
         android:layout_height="24dp"
         app:layout_constraintStart_toEndOf="@+id/nameIDBox"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
@@ -39,6 +41,7 @@
         android:layout_height="24dp"
         android:layout_marginEnd="48dp"
         android:layout_marginRight="48dp"
+        android:textColor="@color/white"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/bioBox"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,9 +54,10 @@
         android:id="@+id/bioBox"
         android:layout_width="314dp"
         android:layout_height="221dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="1.0" />
@@ -64,6 +68,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="48dp"
         android:layout_marginLeft="48dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/bioBox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
@@ -75,6 +80,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/bioBox"
         app:layout_constraintEnd_toStartOf="@+id/ageBox"
         app:layout_constraintHorizontal_bias="1.0"
