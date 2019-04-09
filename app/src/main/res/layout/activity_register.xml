@@ -38,6 +38,20 @@
             android:layout_marginBottom="32px"/>
 
         <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Email"
+            android:layout_marginBottom="32px"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Password"
+            android:layout_marginBottom="32px"/>
+
+        <EditText
             android:id="@+id/age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +92,7 @@
         <EditText
             android:id="@+id/bio"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="32px"
             android:autofillHints=""
             android:ems="10"
@@ -89,5 +103,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="REGISTER" />
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

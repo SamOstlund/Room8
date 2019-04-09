@@ -64,8 +64,6 @@ public class LoginActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_login);
 
         mEmailView = findViewById(R.id.email);
-
-
         mPasswordView =  findViewById(R.id.password);
 
 
@@ -133,16 +131,14 @@ public class LoginActivity extends AppCompatActivity  {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
+        }
 
 
-            mAuth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        else {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-
-
 
                                 Intent intent = new Intent(LoginActivity.this, registerActivity.class);
                                 startActivity(intent);
@@ -170,8 +166,8 @@ public class LoginActivity extends AppCompatActivity  {
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
-        String password = mPasswordView.getText().toString();
+        final String email = mEmailView.getText().toString();
+        final String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -198,7 +194,40 @@ public class LoginActivity extends AppCompatActivity  {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
+        }
+
+        /*
+        else {
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()){
+                        final FirebaseUser user = task.getResult().getUser();
+                        if (user != null){
+                            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()){
+                                        com.google.firebase.database.DatabaseReference databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Users");
+                                        databaseReference = databaseReference.child(user.getUid());
+
+                                        UserModel userModel = new UserModel();
+                                        userModel.setEmail(email);
+                                        userModel.setPassword(password);
+
+                                        databaseReference.setValue(userModel);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        */
+
+
+        else {
 
 
             mAuth.signInWithEmailAndPassword(email, password)
@@ -222,6 +251,7 @@ public class LoginActivity extends AppCompatActivity  {
                     });
 
         }
+
     }
 
 
