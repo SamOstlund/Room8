@@ -11,7 +11,7 @@
         android:layout_height="715dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -28,34 +28,34 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="First Name"
-            android:layout_marginBottom="32px"/>
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/lastName"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Last Name"
-            android:layout_marginBottom="32px"/>
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Email"
-            android:layout_marginBottom="32px"/>
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Password"
-            android:layout_marginBottom="32px"/>
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/age"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32px"
+            android:layout_marginBottom="10dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="Age (18+)"
@@ -65,7 +65,7 @@
             android:id="@+id/minprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32px"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="Minimum Price"
             android:inputType="numberSigned" />
@@ -74,7 +74,7 @@
             android:id="@+id/maxprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32px"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="Maximum Price"
             android:inputType="numberSigned" />
@@ -83,17 +83,17 @@
             android:id="@+id/zip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="Zip Code"
-            android:inputType="numberSigned"
-            android:layout_marginBottom="32px"/>
+            android:inputType="numberSigned" />
 
         <EditText
             android:id="@+id/bio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="32px"
+            android:layout_marginBottom="10dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="Bio" />
@@ -101,8 +101,14 @@
         <Button
             android:id="@+id/submitRegisterButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:hint="REGISTER" />
+
+        <Button
+            android:id="@+id/registerBack"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Already have an account? Sign in" />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

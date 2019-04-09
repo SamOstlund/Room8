@@ -1,5 +1,6 @@
 package com.example.room8;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +12,7 @@ public class registerActivity extends AppCompatActivity {
 
 
     private EditText firstName, lastName, email, password, age, minprice, maxprice, zip, bio;
-    private Button submitRegisterButton;
+    private Button submitRegisterButton, registerBack;
 
     com.google.firebase.database.DatabaseReference databaseReference;
 
@@ -31,6 +32,7 @@ public class registerActivity extends AppCompatActivity {
         zip = (EditText) findViewById(R.id.zip);
         bio = (EditText) findViewById(R.id.bio);
         submitRegisterButton = (Button) findViewById(R.id.submitRegisterButton);
+        registerBack = (Button) findViewById(R.id.registerBack);
 
         databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("User");
 
@@ -42,7 +44,16 @@ public class registerActivity extends AppCompatActivity {
 
             }
         });
+
+        registerBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(registerActivity.this, LoginActivity.class));
+            }
+        });
     }
+
+
 
     public void AddData(){
         String fName = firstName.getText().toString().trim();
