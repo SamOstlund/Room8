@@ -196,35 +196,6 @@ public class LoginActivity extends AppCompatActivity  {
             focusView.requestFocus();
         }
 
-        /*
-        else {
-            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-                        final FirebaseUser user = task.getResult().getUser();
-                        if (user != null){
-                            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()){
-                                        com.google.firebase.database.DatabaseReference databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Users");
-                                        databaseReference = databaseReference.child(user.getUid());
-
-                                        UserModel userModel = new UserModel();
-                                        userModel.setEmail(email);
-                                        userModel.setPassword(password);
-
-                                        databaseReference.setValue(userModel);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                }
-            });
-        }
-        */
 
 
         else {
