@@ -16,6 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".registerActivity"></activity>
         <activity android:name=".messaging" />
+        <activity android:name=".uploadActivity"/>
         <activity android:name=".profileActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

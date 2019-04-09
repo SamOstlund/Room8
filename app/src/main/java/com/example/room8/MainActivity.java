@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private Button logout;
+    private Button uploadImage;
 
 
     @Override
@@ -73,12 +74,21 @@ public class MainActivity extends AppCompatActivity {
 
 
        logout =  findViewById(R.id.logoutButton);
-        logout.setOnClickListener(new View.OnClickListener() {
+       logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mAuth.signOut();
             }
         });
+
+       uploadImage =  findViewById(R.id.uploadButton);
+
+       uploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, uploadActivity.class));
+            }
+       });
 
     }
     @Override
