@@ -103,7 +103,7 @@ public class uploadActivity extends AppCompatActivity {
 
             String userUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            StorageReference ref = storageReference.child("profilepics/userUid:" + userUid);
+            StorageReference ref = storageReference.child(userUid);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
