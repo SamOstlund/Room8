@@ -3,9 +3,14 @@ package com.example.room8;
 public class UserModel {
 
     String firstName, lastName, email, password, age, minprice, maxprice, zip, bio;
+    String profileImageUrl;
 
-    public String getFirstName() {
-        return firstName;
+
+    public void setUrl(String url) {
+        this.profileImageUrl= url;
+    }
+    public String getURL() {
+        return profileImageUrl;
     }
 
     public void setFirstName(String firstName) {

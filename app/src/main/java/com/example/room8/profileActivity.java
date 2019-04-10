@@ -116,9 +116,6 @@ public class profileActivity extends AppCompatActivity
                     if(dataSnapshot.child("profileImageUrl")!= null){
                         String ImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                         switch(ImageUrl){
-                            case "default":
-                                Glide.with(getApplication()).load(R.mipmap.ic_launcher).into(userPIC);
-                                break;
                             default:
                                 Glide.with(getApplication()).load(ImageUrl).into(userPIC);
                                 break;
