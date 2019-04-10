@@ -31,8 +31,8 @@
         android:id="@+id/nameBoxProfile"
         android:layout_width="150dp"
         android:layout_height="24dp"
-        app:layout_constraintStart_toEndOf="@+id/nameIDBox"
         android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/nameIDBox"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
@@ -41,26 +41,24 @@
         android:layout_height="24dp"
         android:layout_marginEnd="48dp"
         android:layout_marginRight="48dp"
-        android:textColor="@color/white"
         android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/bioBox"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.984"
-        app:layout_constraintStart_toEndOf="@+id/nameBoxProfile"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/bioBox"
         android:layout_width="314dp"
-        android:layout_height="221dp"
+        android:layout_height="140dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.709" />
 
     <TextView
         android:id="@+id/nameIDBox"
@@ -78,14 +76,60 @@
         android:id="@+id/ageIDBox"
         android:layout_width="35dp"
         android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/bioBox"
-        app:layout_constraintEnd_toStartOf="@+id/ageBox"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/nameBoxProfile"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/minIDBox"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameIDBox" />
+
+    <TextView
+        android:id="@+id/minBox"
+        android:layout_width="100dp"
+        android:layout_height="24dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/minIDBox"
+        app:layout_constraintTop_toBottomOf="@+id/nameBoxProfile" />
+
+    <TextView
+        android:id="@+id/maxIDBox"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/minBox"
+        app:layout_constraintTop_toBottomOf="@+id/ageIDBox" />
+
+    <TextView
+        android:id="@+id/maxBox"
+        android:layout_width="40dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/maxIDBox"
+        app:layout_constraintTop_toBottomOf="@+id/ageBox" />
+
+    <TextView
+        android:id="@+id/bioIDBox"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/bioBox"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

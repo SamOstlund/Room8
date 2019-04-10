@@ -21,7 +21,7 @@ public class profileActivity extends AppCompatActivity
     private FirebaseAuth mAuth;
     DatabaseReference databaseReference;
     private FirebaseUser loggedInUser;
-    private TextView nameBox, ageBox, bioBox, nameIDBox, ageIDBox;
+    private TextView nameBox, ageBox, bioBox, nameIDBox, ageIDBox, minIDBox, minBox, maxIDBox, maxBox, bioIDBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -65,9 +65,17 @@ public class profileActivity extends AppCompatActivity
         bioBox = findViewById(R.id.bioBox);
         nameIDBox = findViewById(R.id.nameIDBox);
         ageIDBox = findViewById(R.id.ageIDBox);
+        minIDBox = findViewById(R.id.minIDBox);
+        minBox = findViewById(R.id.minBox);
+        maxIDBox = findViewById(R.id.maxIDBox);
+        maxBox = findViewById(R.id.maxBox);
+        bioIDBox = findViewById(R.id.bioIDBox);
 
         nameIDBox.setText("Name: ");
         ageIDBox.setText("Age: ");
+        minIDBox.setText("Minimum: ");
+        maxIDBox.setText("Maximum: ");
+        bioIDBox.setText("Biography:");
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -79,14 +87,28 @@ public class profileActivity extends AppCompatActivity
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                if (dataSnapshot.exists()) //sets the age, name, and bio boxes to the correct values
+                if (dataSnapshot.exists()) //sets the age, name, minimum price, and bio boxes to the correct values
                 {
                     if (dataSnapshot.child("age").getValue() != null)
                         ageBox.setText(dataSnapshot.child("age").getValue().toString());
                     if (dataSnapshot.child("firstName").getValue() != null && dataSnapshot.child("lastName").getValue() != null)
-                        nameBox.setText(dataSnapshot.child("firstName").getValue().toString() + " " + dataSnapshot.child("lastName").getValue().toString());
+                    {
+                        String holder = dataSnapshot.child("firstName").getValue().toString() + " " + dataSnapshot.child("lastName").getValue().toString();
+                        nameBox.setText(holder);
+                    }
                     if (dataSnapshot.child("bio").getValue() != null)
                         bioBox.setText(dataSnapshot.child("bio").getValue().toString());
+                    if (dataSnapshot.child("minprice").getValue() != null)
+                    {
+                        String holder = "$" + dataSnapshot.child("minprice").getValue().toString();
+                        minBox.setText(holder);
+                    }
+                    if (dataSnapshot.child("maxprice").getValue() != null)
+                    {
+                        String holder = "$" + dataSnapshot.child("maxprice").getValue().toString();
+                        maxBox.setText(holder);
+                    }
+
                 }
             }
 
