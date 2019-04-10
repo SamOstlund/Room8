@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:background="#184a8a"
     android:gravity="center_horizontal"
+    android:textColor="@color/white"
+    android:textColorHint="#ffffff"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -52,6 +54,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
+                    android:textColor="@color/white"
+                    android:textColorHint="#ffffff"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -66,7 +70,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
-                    android:textColorHint="@color/colorAccent"
+                    android:textColor="@color/white"
+                    android:textColorHint="#ffffff"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"

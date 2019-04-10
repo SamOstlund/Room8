@@ -3,19 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#184a8a"
     android:layout_height="match_parent"
     tools:context=".registerActivity"
     >
 
     <LinearLayout
         android:layout_width="395dp"
-        android:layout_height="715dp"
+        android:layout_height="711dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="130dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="#184a8a"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,94 +25,154 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.521"
+
         >
 
-        <EditText
-            android:id="@+id/firstName"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="First Name"
-            android:layout_marginBottom="10dp"/>
+            android:layout_height="match_parent"
+            android:background="#184a8a"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp">
 
-        <EditText
-            android:id="@+id/lastName"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Last Name"
-            android:layout_marginBottom="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#184a8a"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Email"
-            android:layout_marginBottom="10dp"/>
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#184a8a"
+                    android:hint="Email"
+                    android:textColor="@color/white"
+                    android:textColorHint="#ffffff" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Password"
-            android:layout_marginBottom="10dp"/>
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#184a8a"
+                    android:hint="Password"
+                    android:textColor="@color/white"
+                    android:textColorHint="#ffffff" />
 
-        <EditText
-            android:id="@+id/age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="Age (18+)"
-            android:inputType="numberSigned" />
 
-        <EditText
-            android:id="@+id/minprice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Minimum Price"
-            android:inputType="numberSigned" />
+                <EditText
+                    android:id="@+id/firstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#184a8a"
+                    android:hint="First Name"
+                    android:textColor="@color/white"
+                    android:textColorHint="#ffffff"
+                    tools:layout_editor_absoluteX="8dp" />
 
-        <EditText
-            android:id="@+id/maxprice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Maximum Price"
-            android:inputType="numberSigned" />
+                <EditText
+                    android:id="@+id/lastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#184a8a"
+                    android:hint="Last Name"
+                    android:textColor="@color/white"
+                    android:textColorHint="#ffffff" />
 
-        <EditText
-            android:id="@+id/zip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="Zip Code"
-            android:inputType="numberSigned" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#184a8a"
+                    android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/bio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:autofillHints=""
-            android:ems="10"
-            android:hint="Bio" />
 
-        <Button
-            android:id="@+id/submitRegisterButton"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="REGISTER" />
+                    <EditText
+                        android:id="@+id/zip"
+                        android:layout_width="197.5dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints=""
+                        android:background="#184a8a"
+                        android:ems="10"
+                        android:hint="Zip Code"
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="#ffffff" />
 
-        <Button
-            android:id="@+id/registerBack"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="Already have an account? Sign in" />
+                    <EditText
+                        android:id="@+id/age"
+                        android:layout_width="197dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:autofillHints=""
+                        android:background="#184a8a"
+                        android:ems="10"
+                        android:hint="Age (18+)"
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="#ffffff" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#184a8a"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/maxprice"
+                        android:layout_width="197dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="10dp"
+                        android:background="#184a8a"
+                        android:ems="10"
+                        android:hint="Maximum Price"
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="#ffffff" />
+
+                    <EditText
+                        android:id="@+id/minprice"
+                        android:layout_width="197dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:background="#184a8a"
+                        android:ems="10"
+                        android:hint="Minimum Price"
+                        android:inputType="numberSigned"
+                        android:textColor="@color/white"
+                        android:textColorHint="#ffffff" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/bio"
+                    android:layout_width="match_parent"
+                    android:layout_height="167dp"
+                    android:layout_marginBottom="10dp"
+                    android:autofillHints=""
+                    android:background="#184a8a"
+                    android:ems="10"
+                    android:hint="Bio"
+                    android:textColor="@color/white"
+                    android:textColorHint="#ffffff" />
+
+                <Button
+                    android:id="@+id/submitRegisterButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="REGISTER" />
+
+                <Button
+                    android:id="@+id/registerBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="Already have an account? Sign in" />
+
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
