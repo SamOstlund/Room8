@@ -27,6 +27,7 @@ public class profileActivity extends AppCompatActivity
     private FirebaseUser loggedInUser;
     private TextView nameBox, ageBox, bioBox, nameIDBox, ageIDBox, minIDBox, minBox, maxIDBox, maxBox, bioIDBox;
     private ImageView userPIC;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -64,6 +65,8 @@ public class profileActivity extends AppCompatActivity
             }
         });
 
+
+        //Connects the variables to the actual items/views on the .xml file
         nameBox = findViewById(R.id.nameBoxProfile);
         ageBox = findViewById(R.id.ageBox);
         bioBox = findViewById(R.id.bioBox);
@@ -75,18 +78,20 @@ public class profileActivity extends AppCompatActivity
         maxBox = findViewById(R.id.maxBox);
         bioIDBox = findViewById(R.id.bioIDBox);
         userPIC = (ImageView) findViewById(R.id.profilePic);
+
+        //Sets the text for the textViews that identify which category of information it is
         nameIDBox.setText("Name: ");
         ageIDBox.setText("Age: ");
         minIDBox.setText("Minimum: ");
         maxIDBox.setText("Maximum: ");
         bioIDBox.setText("Biography:");
 
-
+        //Getting firebase authentication and also getting the current user's unique ID
         mAuth = FirebaseAuth.getInstance();
         loggedInUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentID = mAuth.getCurrentUser().getUid();
         databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Users").child(currentID);
-        databaseReference.addValueEventListener(new ValueEventListener()
+        databaseReference.addValueEventListener(new ValueEventListener() //this checks if there is information for each of the category of the profile and if there is information then it puts that data on the display
         {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
