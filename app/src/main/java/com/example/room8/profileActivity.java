@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -16,13 +18,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+/*Allows user to view profile information*/
+
 public class profileActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
     DatabaseReference databaseReference;
     private FirebaseUser loggedInUser;
     private TextView nameBox, ageBox, bioBox, nameIDBox, ageIDBox, minIDBox, minBox, maxIDBox, maxBox, bioIDBox;
-
+    private ImageView userPIC;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -70,7 +74,7 @@ public class profileActivity extends AppCompatActivity
         maxIDBox = findViewById(R.id.maxIDBox);
         maxBox = findViewById(R.id.maxBox);
         bioIDBox = findViewById(R.id.bioIDBox);
-
+        userPIC = (ImageView) findViewById(R.id.profilePic);
         nameIDBox.setText("Name: ");
         ageIDBox.setText("Age: ");
         minIDBox.setText("Minimum: ");
@@ -85,37 +89,43 @@ public class profileActivity extends AppCompatActivity
         databaseReference.addValueEventListener(new ValueEventListener()
         {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
-            {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) //sets the age, name, minimum price, and bio boxes to the correct values
                 {
                     if (dataSnapshot.child("age").getValue() != null)
                         ageBox.setText(dataSnapshot.child("age").getValue().toString());
-                    if (dataSnapshot.child("firstName").getValue() != null && dataSnapshot.child("lastName").getValue() != null)
-                    {
+                    if (dataSnapshot.child("firstName").getValue() != null && dataSnapshot.child("lastName").getValue() != null) {
                         String holder = dataSnapshot.child("firstName").getValue().toString() + " " + dataSnapshot.child("lastName").getValue().toString();
                         nameBox.setText(holder);
                     }
                     if (dataSnapshot.child("bio").getValue() != null)
                         bioBox.setText(dataSnapshot.child("bio").getValue().toString());
-                    if (dataSnapshot.child("minprice").getValue() != null)
-                    {
+                    if (dataSnapshot.child("minprice").getValue() != null) {
                         String holder = "$" + dataSnapshot.child("minprice").getValue().toString();
                         minBox.setText(holder);
                     }
-                    if (dataSnapshot.child("maxprice").getValue() != null)
-                    {
+                    if (dataSnapshot.child("maxprice").getValue() != null) {
                         String holder = "$" + dataSnapshot.child("maxprice").getValue().toString();
                         maxBox.setText(holder);
                     }
+                    if(dataSnapshot.child("profileImageUrl")!= null){
+                        String ImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        switch(ImageUrl){
+                            case "default":
+                                Glide.with(getApplication()).load(R.mipmap.ic_launcher).into(userPIC);
+                                break;
+                            default:
+                                Glide.with(getApplication()).load(ImageUrl).into(userPIC);
+                                break;
+                    }
 
                 }
+                }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError)
             {
-
+                return;
             }
         });
 

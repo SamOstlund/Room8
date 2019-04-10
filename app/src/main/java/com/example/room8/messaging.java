@@ -8,6 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+
+/*Messaging activity needs to be completed*/
+
+
 public class messaging extends AppCompatActivity {
 
     @Override

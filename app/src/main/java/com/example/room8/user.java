@@ -3,16 +3,20 @@ package com.example.room8;
 public class user
 {
 
-
+/*Start of member data*/
   private String firstName;
- private  String lastName;
+  private  String lastName;
   private int age;
   private int zipcode;
-private   String bio;
-private    int maxPrice;
+  private   String bio;
+  private    int maxPrice;
   private int minPrice;
-   private String ID;
+  private String ID;
+  private String profileUrl;
 
+/*End of member data*/
+
+  /*Constructor,setter,and getters below*/
    public user(String first, String last, int ag, int zip, String biography, int max, int min, String uniqueID)
    {
        this.firstName = first;
@@ -24,7 +28,13 @@ private    int maxPrice;
        this.minPrice = min;
        this.ID = uniqueID;
    }
-
+   public void setProfileUrl(String URL){{
+    profileUrl = URL;
+   }
+   }
+    public String getProfileUrl(){
+       return profileUrl;
+    }
    public String getFirstName()
    {
        return firstName;

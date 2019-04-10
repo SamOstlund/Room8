@@ -13,7 +13,7 @@ import android.view.Menu;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
+/*Match making process needs to be completed*/
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                /* Switch that changes activity accordingly*/
+
                 switch(menuItem.getItemId())
                 {
                     case R.id.navigation_profile:
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAuth.signOut();
+               logOut();
             }
         });
 
@@ -90,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
             }
        });
 
+    }
+    private void logOut(){
+        mAuth.signOut();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
     @Override
     protected void onStart() {

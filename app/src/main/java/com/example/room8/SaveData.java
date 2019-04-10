@@ -1,8 +1,10 @@
 package com.example.room8;
 
+/*Helper class to store data in the database*/
+
 public class SaveData {
 
-    String firstName, lastName, email, password, age, minprice, maxprice, zip, bio;
+   private String firstName, lastName, email, password, age, minprice, maxprice, zip, bio;
 
     public String getFirstName() {
         return firstName;
@@ -76,7 +78,7 @@ public class SaveData {
         this.bio = bio;
     }
 
-    public SaveData(String firstName, String lastName, String email, String password, String age, String minprice, String maxprice, String zip, String bio) {
+    SaveData(String firstName, String lastName, String email, String password, String age, String minprice, String maxprice, String zip, String bio) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
