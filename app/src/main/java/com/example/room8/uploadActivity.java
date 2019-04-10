@@ -16,19 +16,26 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class uploadActivity extends AppCompatActivity {
     private Button btnChoose, btnUpload;
     private ImageView imageView;
-
+    private FirebaseAuth mAuth;
+    private DatabaseReference mUserDatabase;
+    private String userId;
     private Uri filePath;
 
     private final int PICK_IMAGE_REQUEST = 71;
@@ -41,7 +48,10 @@ public class uploadActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+        mAuth = FirebaseAuth.getInstance();
+        userId = mAuth.getCurrentUser().getUid();
 
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         //Initialize Views
         btnChoose = (Button) findViewById(R.id.btnChoose);
         btnUpload = (Button) findViewById(R.id.btnUpload);
@@ -110,6 +120,15 @@ public class uploadActivity extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(uploadActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                            while(!uri.isComplete());
+                            Uri url = uri.getResult();
+
+
+                            Map userInfo = new HashMap();
+                            userInfo.put("profileImageUrl", url.toString());
+                            mUserDatabase.updateChildren(userInfo);
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
