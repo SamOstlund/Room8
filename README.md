@@ -14,4 +14,4 @@ Alex Chiciu
 Josh Glogau
 Justin Richman
 Sam Ostlund
-Will Grant
+William Grant
