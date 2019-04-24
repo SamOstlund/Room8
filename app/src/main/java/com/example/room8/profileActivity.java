@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 public class profileActivity extends AppCompatActivity
 {
     private FirebaseAuth mAuth;
-    DatabaseReference databaseReference;
+    private DatabaseReference databaseReference;
     private FirebaseUser loggedInUser;
     private TextView nameBox, ageBox, bioBox, nameIDBox, ageIDBox, minIDBox, minBox, maxIDBox, maxBox, bioIDBox;
     private ImageView userPIC;

@@ -1,26 +1,42 @@
 package com.example.room8;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Intent;
 import android.view.Menu;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 /*Match making process needs to be completed*/
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private Button logout;
-    private Button uploadImage;
+    private Button logout, uploadImage, dislikeButton, likeButton;
+    private DatabaseReference databaseReference;
+    private ArrayList<user> possibleMatches;
+    private userArrayAdapter myUserArrayAdapter;
+    private ListView cardFrame;
 
 
     @Override
@@ -92,6 +108,29 @@ public class MainActivity extends AppCompatActivity {
             }
        });
 
+
+
+       //MATCHMAKING
+        dislikeButton = findViewById(R.id.dislikeButton);
+        likeButton = findViewById(R.id.likeButton);
+        cardFrame = findViewById(R.id.myListView);
+
+
+        String currentID = mAuth.getCurrentUser().getUid(); //string will hold the current logged in User ID
+        databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Users"); //This creates a database reference that will reference our list of users
+
+        possibleMatches = new ArrayList<user>();
+
+        getPotentialMatches();
+        myUserArrayAdapter = new userArrayAdapter(this, R.layout.user_item, possibleMatches);
+
+        cardFrame.setAdapter(myUserArrayAdapter);
+
+
+
+
+
+
     }
     private void logOut(){
         mAuth.signOut();
@@ -109,5 +148,44 @@ public class MainActivity extends AppCompatActivity {
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
 
+    private void getPotentialMatches()
+    {
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+            {
+                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("no").hasChild(mAuth.getCurrentUser().getUid()) && !dataSnapshot.child("connections").child("yes").hasChild(mAuth.getCurrentUser().getUid()) && !dataSnapshot.child("matches").hasChild(mAuth.getCurrentUser().getUid()))
+                {
+                    user obj = new user(dataSnapshot.getKey());
+                    possibleMatches.add(obj);
+                    myUserArrayAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+            {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
+            {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+            {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
+
+            }
+        });
+    }
 
 }
