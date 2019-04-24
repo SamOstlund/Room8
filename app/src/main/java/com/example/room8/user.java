@@ -5,11 +5,11 @@ public class user
 
 /*Start of member data*/
   private String firstName;
-  private  String lastName;
+  private String lastName;
   private int age;
   private int zipcode;
-  private   String bio;
-  private    int maxPrice;
+  private String bio;
+  private int maxPrice;
   private int minPrice;
   private String ID;
   private String profileUrl;
@@ -17,7 +17,7 @@ public class user
 /*End of member data*/
 
   /*Constructor,setter,and getters below*/
-   public user(String first, String last, int ag, int zip, String biography, int max, int min, String uniqueID)
+   public user(String first, String last, int ag, int zip, String biography, int max, int min, String uniqueID, String URL)
    {
        this.firstName = first;
        this.lastName = last;
@@ -27,7 +27,9 @@ public class user
        this.maxPrice = max;
        this.minPrice = min;
        this.ID = uniqueID;
+       this.profileUrl = URL;
    }
+
    public void setProfileUrl(String URL){{
     profileUrl = URL;
    }
