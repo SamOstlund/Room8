@@ -34,7 +34,7 @@ public class userArrayAdapter extends ArrayAdapter<user>
 
         //Attaching the views to the correct object
         TextView userName = (TextView) convertView.findViewById(R.id.userName);
-        ImageView image = (ImageView) convertView.findViewById(R.id.user_profile_pic);
+        ImageView image = (ImageView) convertView.findViewById(R.id.userImage);
 
         //setting the correct values to the views
         userName.setText(userObj.getFirstName());
