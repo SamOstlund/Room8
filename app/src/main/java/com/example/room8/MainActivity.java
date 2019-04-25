@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ArrayList<user> possibleMatches;
     private userArrayAdapter myUserArrayAdapter;
-    private ListView cardFrame;
+    private CardView cardFrame;
+    private RecyclerView myRecycleView;
 
 
     @Override
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-       logout =  findViewById(R.id.logoutButton);
+       logout = findViewById(R.id.logoutButton);
        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
        //MATCHMAKING
         dislikeButton = findViewById(R.id.dislikeButton);
         likeButton = findViewById(R.id.likeButton);
-        cardFrame = findViewById(R.id.myListView);
+        cardFrame = findViewById(R.id.mainCardView);
+        myRecycleView = findViewById(R.id.myRecycleView);
 
 
         String currentID = mAuth.getCurrentUser().getUid(); //string will hold the current logged in User ID
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         getPotentialMatches();
         myUserArrayAdapter = new userArrayAdapter(this, R.layout.user_item, possibleMatches);
 
-        cardFrame.setAdapter(myUserArrayAdapter);
+        myRecycleView.setAdapter(myUserArrayAdapter);
 
 
 
