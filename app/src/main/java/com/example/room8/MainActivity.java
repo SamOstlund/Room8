@@ -11,7 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.Intent;
 import android.view.Menu;
@@ -22,6 +24,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private userArrayAdapter myUserArrayAdapter;
     private CardView cardFrame;
     private RecyclerView myRecycleView;
+    private ListView myListView;
 
 
     @Override
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       uploadImage =  findViewById(R.id.uploadButton);
+       uploadImage = findViewById(R.id.uploadButton);
 
        uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,19 +119,19 @@ public class MainActivity extends AppCompatActivity {
        //MATCHMAKING
         dislikeButton = findViewById(R.id.dislikeButton);
         likeButton = findViewById(R.id.likeButton);
-        cardFrame = findViewById(R.id.mainCardView);
-        myRecycleView = findViewById(R.id.myRecycleView);
+        myListView = findViewById(R.id.mainListView);
+
 
 
         String currentID = mAuth.getCurrentUser().getUid(); //string will hold the current logged in User ID
-        databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Users"); //This creates a database reference that will reference our list of users
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users"); //This creates a database reference that will reference our list of users
 
         possibleMatches = new ArrayList<user>();
+        possibleMatches.add(new user("test", 3));
+        //getPotentialMatches();
+        myUserArrayAdapter = new userArrayAdapter(this, possibleMatches);
 
-        getPotentialMatches();
-        myUserArrayAdapter = new userArrayAdapter(this, R.layout.user_item, possibleMatches);
-
-        myRecycleView.setAdapter(myUserArrayAdapter);
+        myListView.setAdapter(myUserArrayAdapter);
 
 
 

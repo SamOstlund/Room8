@@ -52,15 +52,23 @@ public class user
            {
                if (dataSnapshot.exists())
                {
-                   firstName = dataSnapshot.child("firstName").getValue().toString();
-                   lastName = dataSnapshot.child("lastName").getValue().toString();
-                   age = (int) dataSnapshot.child("age").getValue();
-                   zipCode = (int) dataSnapshot.child("zip").getValue();
-                   bio = dataSnapshot.child("bio").getValue().toString();
-                   maxPrice = (int) dataSnapshot.child("maxprice").getValue();
-                   minPrice = (int) dataSnapshot.child("minprice").getValue();
+                   if (dataSnapshot.child("firstName").getValue() != null)
+                    firstName = dataSnapshot.child("firstName").getValue().toString();
+                   if (dataSnapshot.child("lastName").getValue() != null)
+                    lastName = dataSnapshot.child("lastName").getValue().toString();
+                   if (dataSnapshot.child("age").getValue() != null)
+                     age = (int) dataSnapshot.child("age").getValue();
+                   if (dataSnapshot.child("zip").getValue() != null)
+                    zipCode = (int) dataSnapshot.child("zip").getValue();
+                   if (dataSnapshot.child("bio").getValue() != null)
+                    bio = dataSnapshot.child("bio").getValue().toString();
+                   if (dataSnapshot.child("maxprice").getValue() != null)
+                    maxPrice = (int) dataSnapshot.child("maxprice").getValue();
+                   if (dataSnapshot.child("minprice").getValue() != null)
+                    minPrice = (int) dataSnapshot.child("minprice").getValue();
+                   if (dataSnapshot.child("profileImageUrl").getValue() != null)
+                     profileUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                    ID = userID;
-                   profileUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                }
            }
 
@@ -73,10 +81,16 @@ public class user
 
    }
 
-   public void setProfileUrl(String URL){{
+   public user(String fname, int value)
+   {
+       firstName = fname;
+   }
+
+   public void setProfileUrl(String URL)
+   {
     profileUrl = URL;
    }
-   }
+
    public String getProfileUrl(){
        return profileUrl;
     }

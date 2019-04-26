@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /*Allows user to view profile information*/
@@ -90,7 +91,7 @@ public class profileActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         loggedInUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentID = mAuth.getCurrentUser().getUid();
-        databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Users").child(currentID);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentID);
         databaseReference.addValueEventListener(new ValueEventListener() //this checks if there is information for each of the category of the profile and if there is information then it puts that data on the display
         {
             @Override
