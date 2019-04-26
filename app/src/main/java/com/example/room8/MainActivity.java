@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        String currentID = mAuth.getCurrentUser().getUid(); //string will hold the current logged in User ID
+       String currentID = mAuth.getUid(); //string will hold the current logged in User ID
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users"); //This creates a database reference that will reference our list of users
 
         possibleMatches = new ArrayList<user>();
