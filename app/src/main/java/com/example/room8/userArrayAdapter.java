@@ -47,7 +47,7 @@ public class userArrayAdapter extends ArrayAdapter<user>
         user currentUser = userList.get(position);
 
         //Attaching the views to the correct object
-        TextView userName = (TextView) convertView.findViewById(R.id.userName);
+        TextView userName = (TextView) convertView.findViewById(R.id.name);
        // ImageView image = (ImageView) convertView.findViewById(R.id.userImage);
 
         //setting the correct values to the views

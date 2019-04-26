@@ -8,6 +8,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.content.Intent;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 
 import java.util.ArrayList;
@@ -42,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private userArrayAdapter myUserArrayAdapter;
     private CardView cardFrame;
     private RecyclerView myRecycleView;
-    private ListView myListView;
+    private SwipeFlingAdapterView myFlingView;
 
 
     @Override
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
        //MATCHMAKING
         dislikeButton = findViewById(R.id.dislikeButton);
         likeButton = findViewById(R.id.likeButton);
-        myListView = findViewById(R.id.mainListView);
+        myFlingView = findViewById(R.id.myFlingView);
 
 
 
@@ -131,7 +134,45 @@ public class MainActivity extends AppCompatActivity {
         //getPotentialMatches();
         myUserArrayAdapter = new userArrayAdapter(this, possibleMatches);
 
-        myListView.setAdapter(myUserArrayAdapter);
+        myFlingView.setAdapter(myUserArrayAdapter);
+        myFlingView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+            @Override
+            public void removeFirstObjectInAdapter() {
+                Log.d("LIST", "removed object!");
+                possibleMatches.remove(0);
+                myUserArrayAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onLeftCardExit(Object dataObject) {
+
+                user obj = (user) dataObject;
+                Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRightCardExit(Object dataObject) {
+                user obj = (user) dataObject;
+                Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAdapterAboutToEmpty(int itemsInAdapter) {
+            }
+
+            @Override
+            public void onScroll(float scrollProgressPercent) {
+            }
+        });
+
+
+        // Optionally add an OnItemClickListener
+        myFlingView.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClicked(int itemPosition, Object dataObject) {
+                Toast.makeText(MainActivity.this, "Item Clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
