@@ -156,14 +156,7 @@ public class MainActivity extends AppCompatActivity {
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
-                    else {
-
-                        String profileImageUrl = "https://firebasestorage.googleapis.com/v0/b/room8-4357b.appspot.com/o/default.png?alt=media&token=b7864fc3-6e0b-4372-a2ed-5cf50bc8e703";
-
-                        user item = new user("null","No users to show", profileImageUrl);
-                        rowItems.add(item);
-                        arrayAdapter.notifyDataSetChanged();
-                    }
+                   
 
             }
             @Override
