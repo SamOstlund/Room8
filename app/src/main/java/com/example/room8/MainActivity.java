@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    if (dataSnapshot.exists() && dataSnapshot.getKey() != currentUId) {
+                    if (dataSnapshot.exists()  ) {
 
                         String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
 
@@ -156,11 +156,19 @@ public class MainActivity extends AppCompatActivity {
                         rowItems.add(item);
                         arrayAdapter.notifyDataSetChanged();
                     }
-                   
+
 
             }
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.exists() && dataSnapshot.getKey() != currentUId) {
+
+                    String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+
+                    user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                    rowItems.add(item);
+                    arrayAdapter.notifyDataSetChanged();
+                }
             }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {

@@ -51,7 +51,7 @@ public class uploadActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child(userId);
         //Initialize Views
         btnChoose = (Button) findViewById(R.id.btnChoose);
         btnUpload = (Button) findViewById(R.id.btnUpload);
