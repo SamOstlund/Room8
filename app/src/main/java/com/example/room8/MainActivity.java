@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-
+    //    databaseReference = FirebaseDatabase.getInstance().getReference().child(mAuth.getUid());
         usersDb = FirebaseDatabase.getInstance().getReference();
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -141,43 +141,63 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getPotentialMatches(){
-        usersDb.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    if (dataSnapshot.exists()  ) {
+            usersDb.addChildEventListener(new ChildEventListener() {
+               final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(currentUId);
+                    @Override
+                    public void onChildAdded (DataSnapshot dataSnapshot, String s){
 
-                        String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                            rowItems.add(item);
+                            arrayAdapter.notifyDataSetChanged();
+                        }
 
-                        user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
-                        rowItems.add(item);
-                        arrayAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onChildChanged (DataSnapshot dataSnapshot, String s){
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                            rowItems.add(item);
+                            arrayAdapter.notifyDataSetChanged();
+
+                        }
+
                     }
 
 
-            }
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if (dataSnapshot.exists() && dataSnapshot.getKey() != currentUId) {
+                    @Override
+                    public void onChildRemoved (DataSnapshot dataSnapshot){
 
-                    String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
-
-                    user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
-                    rowItems.add(item);
-                    arrayAdapter.notifyDataSetChanged();
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                            rowItems.add(item);
+                            arrayAdapter.notifyDataSetChanged();
+                        }
                 }
-            }
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
 
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+                    @Override
+                    public void onChildMoved (DataSnapshot dataSnapshot, String s){
+
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                            rowItems.add(item);
+                            arrayAdapter.notifyDataSetChanged();
+                        }
+                }
+
+                    @Override
+                    public void onCancelled (DatabaseError databaseError){
+
+                }
+
+            });
+
     }
 
 
