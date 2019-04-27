@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         likeButton = findViewById(R.id.likeButton);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-     //   getPotentialMatches();
+      getPotentialMatches();
         rowItems = new ArrayList<user>();
         arrayAdapter = new userArrayAdapter(this, R.layout.user_item, rowItems);
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
@@ -198,16 +198,43 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void getPotentialMatches() {
-
-        db.collection("Users").document("kZZc534iJKvAAuhNvTIF").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                String group_string= document.getData().toString();
-                //user obj = new user(group_string);
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+            {
+                if (dataSnapshot.exists())
+                {
+                     user obj = new user(dataSnapshot.getKey().toString(),databaseReference.child("firstName").toString(),databaseReference.child("profileImageUrl").toString());
+                     rowItems.add(obj);
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+            {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
+            {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+            {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError)
+            {
 
             }
         });
+
     }
 
     private void logOut() {
