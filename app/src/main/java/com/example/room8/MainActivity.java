@@ -40,13 +40,23 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     private Button logout, uploadImage, dislikeButton, likeButton;
-    private DatabaseReference databaseReference;
-    private ArrayList<user> possibleMatches;
-    private userArrayAdapter myUserArrayAdapter;
     private CardView cardFrame;
     private RecyclerView myRecycleView;
     private SwipeFlingAdapterView myFlingView;
 
+
+
+    private DatabaseReference databaseReference;
+    private List<user> possibleMatches;
+    private userArrayAdapter arrayAdapter;
+
+    private String currentUId;
+
+    private DatabaseReference usersDb;
+
+
+    ListView listView;
+    List<user> rowItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
+        usersDb = FirebaseDatabase.getInstance().getReference();
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -67,92 +79,47 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-        mTextMessage = findViewById(R.id.message);
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        Menu menu = navigation.getMenu();
+        compressCreate();
 
-        //Setting up the navigation bar at the bottom to go to the correct page when clicked. I also highlight the chosen page so the user knows where they are in the app.
-        MenuItem menuItem = menu.getItem(1);
-        menuItem.setChecked(true);
-        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                /* Switch that changes activity accordingly*/
+       // usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
-                switch(menuItem.getItemId())
-                {
-                    case R.id.navigation_profile:
-                        Intent intent = new Intent(MainActivity.this, profileActivity.class);
-                        startActivity(intent);
-                        break;
-
-                    case R.id.navigation_home:
-                        break;
-
-                    case R.id.navigation_messaging:
-                        Intent intent3 = new Intent(MainActivity.this, messaging.class);
-                        startActivity(intent3);
-                        break;
-                }
-
-                return false;
-            }
-        });
-
-
-       logout = findViewById(R.id.logoutButton);
-       logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               logOut();
-            }
-        });
-
-       uploadImage = findViewById(R.id.uploadButton);
-
-       uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, uploadActivity.class));
-            }
-       });
+        mAuth = FirebaseAuth.getInstance();
+        currentUId = mAuth.getUid();
 
 
 
-       //MATCHMAKING
-        dislikeButton = findViewById(R.id.dislikeButton);
-        likeButton = findViewById(R.id.likeButton);
-        myFlingView = findViewById(R.id.myFlingView);
+        rowItems = new ArrayList<user>();
+        getPotentialMatches();
+        arrayAdapter = new userArrayAdapter(this, R.layout.user_item, rowItems );
 
 
 
-       String currentID = mAuth.getUid(); //string will hold the current logged in User ID
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users"); //This creates a database reference that will reference our list of users
+        SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.card);
 
-        possibleMatches = new ArrayList<user>();
-        possibleMatches.add(new user("test", 3));
-        //getPotentialMatches();
-        myUserArrayAdapter = new userArrayAdapter(this, possibleMatches);
-
-        myFlingView.setAdapter(myUserArrayAdapter);
-        myFlingView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
+        flingContainer.setAdapter(arrayAdapter);
+        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
             public void removeFirstObjectInAdapter() {
                 Log.d("LIST", "removed object!");
-                possibleMatches.remove(0);
-                myUserArrayAdapter.notifyDataSetChanged();
+                rowItems.remove(0);
+                arrayAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onLeftCardExit(Object dataObject) {
 
-                user obj = (user) dataObject;
+              user obj = (user) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(userId).child("Connections").child("NotLikes").child(currentUId).setValue(true);
                 Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
-                user obj = (user) dataObject;
+               user obj = (user) dataObject;
+                String userId = obj.getUserId();
+                usersDb.child(userId).child("Connections").child("Likes").child(currentUId).setValue(true);
+               // isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
             }
 
@@ -167,19 +134,56 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Optionally add an OnItemClickListener
-        myFlingView.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
+        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
                 Toast.makeText(MainActivity.this, "Item Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
-
-
-
-
-
     }
+
+    public void getPotentialMatches(){
+        usersDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    if (dataSnapshot.exists() && dataSnapshot.getKey() != currentUId) {
+
+                        String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+
+                        user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+                    else {
+
+                        String profileImageUrl = "https://firebasestorage.googleapis.com/v0/b/room8-4357b.appspot.com/o/default.png?alt=media&token=b7864fc3-6e0b-4372-a2ed-5cf50bc8e703";
+
+                        user item = new user("null","No users to show", profileImageUrl);
+                        rowItems.add(item);
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+
+
     private void logOut(){
         mAuth.signOut();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
@@ -196,44 +200,65 @@ public class MainActivity extends AppCompatActivity {
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
 
-    private void getPotentialMatches()
-    {
-        databaseReference.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
+    private void compressCreate()
+{
+    mTextMessage = findViewById(R.id.message);
+    BottomNavigationView navigation = findViewById(R.id.navigation);
+    Menu menu = navigation.getMenu();
+
+    //Setting up the navigation bar at the bottom to go to the correct page when clicked. I also highlight the chosen page so the user knows where they are in the app.
+    MenuItem menuItem = menu.getItem(1);
+    menuItem.setChecked(true);
+    navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            /* Switch that changes activity accordingly*/
+
+            switch(menuItem.getItemId())
             {
-                if (dataSnapshot.exists() && !dataSnapshot.child("connections").child("no").hasChild(mAuth.getCurrentUser().getUid()) && !dataSnapshot.child("connections").child("yes").hasChild(mAuth.getCurrentUser().getUid()) && !dataSnapshot.child("matches").hasChild(mAuth.getCurrentUser().getUid()))
-                {
-                    user obj = new user(dataSnapshot.getKey());
-                    possibleMatches.add(obj);
-                    myUserArrayAdapter.notifyDataSetChanged();
-                }
+                case R.id.navigation_profile:
+                    Intent intent = new Intent(MainActivity.this, profileActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case R.id.navigation_home:
+                    break;
+
+                case R.id.navigation_messaging:
+                    Intent intent3 = new Intent(MainActivity.this, messaging.class);
+                    startActivity(intent3);
+                    break;
             }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-            {
+            return false;
+        }
+    });
 
-            }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot)
-            {
+    logout = findViewById(R.id.logoutButton);
+    logout.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            logOut();
+        }
+    });
 
-            }
+    uploadImage = findViewById(R.id.uploadButton);
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s)
-            {
+    uploadImage.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(MainActivity.this, uploadActivity.class));
+        }
+    });
 
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError)
-            {
 
-            }
-        });
-    }
+    //MATCHMAKING
+    dislikeButton = findViewById(R.id.dislikeButton);
+    likeButton = findViewById(R.id.likeButton);
+   // myFlingView = findViewById(R.id.frame);
 
+
+}
 }
