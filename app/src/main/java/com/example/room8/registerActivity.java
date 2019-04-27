@@ -112,6 +112,10 @@ public class registerActivity extends AppCompatActivity {
                     userModel.setBio(bio.getText().toString().trim());
                     userModel.setUrl("https://firebasestorage.googleapis.com/v0/b/room8-4357b.appspot.com/o/default.png?alt=media&token=b7864fc3-6e0b-4372-a2ed-5cf50bc8e703");
                     databaseReference.setValue(userModel);
+                    databaseReference = databaseReference.child("Connections");
+                    databaseReference.child("NotLikes").child(userId).setValue(true);
+
+
 
 
 
