@@ -6,6 +6,7 @@ public class UserModel {
     String profileImageUrl;
 
 
+
     public void setUrl(String url) {
         this.profileImageUrl= url;
     }

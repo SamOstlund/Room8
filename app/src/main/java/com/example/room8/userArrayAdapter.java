@@ -17,53 +17,33 @@ import java.util.List;
 public class userArrayAdapter extends ArrayAdapter<user>
 {
 
-    private Context thisContext;
-    private List<user> userList = new ArrayList<>();
-    private int resource;
+    Context context;
 
-    public userArrayAdapter(Context context, int resourceId, ArrayList<user> usersListGiven)
-    {
-
-        super(context, resourceId, usersListGiven);
-        thisContext = context;
-        userList = usersListGiven;
-        resource = resourceId;
+    public userArrayAdapter(Context context, int resourceId, List<user> items){
+        super(context, resourceId, items);
     }
 
-    public userArrayAdapter(Context context, ArrayList<user> users)
-    {
-        super(context, 0, users);
-        thisContext = context;
-        userList = users;
-    }
+    public View getView(int position, View convertView, ViewGroup parent){
+        user card_item = getItem(position);
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+        if (convertView == null){
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.user_item, parent, false);
+        }
 
-        if (convertView == null)
-            convertView = LayoutInflater.from(thisContext).inflate(R.layout.user_item, parent, false); //inflate it to fit
+        TextView name = (TextView) convertView.findViewById(R.id.name);
+        ImageView image = (ImageView) convertView.findViewById(R.id.image);
 
-        user currentUser = userList.get(position);
-
-        //Attaching the views to the correct object
-        TextView userName = (TextView) convertView.findViewById(R.id.name);
-       // ImageView image = (ImageView) convertView.findViewById(R.id.userImage);
-
-        //setting the correct values to the views
-        userName.setText(currentUser.getFirstName());
-       /* switch(currentUser.getProfileUrl()) //switch statement for setting the picture
-        {
-            case "default":
-                Glide.with(convertView.getContext()).load(R.mipmap.ic_launcher).into(image);
-                break;
+        name.setText(card_item.getName());
+        switch(card_item.getProfileImageUrl()){
             default:
                 Glide.clear(image);
-                Glide.with(convertView.getContext()).load(currentUser.getProfileUrl()).into(image);
+                Glide.with(convertView.getContext()).load(card_item.getProfileImageUrl()).into(image);
                 break;
-        }*/
+        }
+
 
         return convertView;
+
     }
 
 

@@ -91,7 +91,7 @@ public class profileActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         loggedInUser = FirebaseAuth.getInstance().getCurrentUser();
         String currentID = mAuth.getCurrentUser().getUid();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(currentID);
+        databaseReference = FirebaseDatabase.getInstance().getReference().child(currentID);
         databaseReference.addValueEventListener(new ValueEventListener() //this checks if there is information for each of the category of the profile and if there is information then it puts that data on the display
         {
             @Override

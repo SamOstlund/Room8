@@ -76,18 +76,11 @@
         app:layout_constraintStart_toEndOf="@+id/dislikeButton" />
 
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
-        android:id="@+id/myFlingView"
+        android:id="@+id/frame"
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/dislikeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/uploadButton"
-        app:layout_constraintVertical_bias="0.391"
         app:rotation_degrees="15.5"
-        tools:context=".MyActivity" />
-
+        tools:context=".MyActivity"/>
 
 </android.support.constraint.ConstraintLayout>

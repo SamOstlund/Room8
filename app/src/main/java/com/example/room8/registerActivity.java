@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +15,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class registerActivity extends AppCompatActivity {
@@ -22,18 +30,31 @@ public class registerActivity extends AppCompatActivity {
 
     private EditText firstName, lastName, email, password, age, minprice, maxprice, zip, bio;
     private Button submitRegisterButton, registerBack;
-
+    private FirebaseFirestore db;
     private FirebaseAuth mAuth;
 
     DatabaseReference databaseReference;
-
+    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user !=null){
+                    Intent intent = new Intent(registerActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                    return;
+                }
+            }
+        };
 
         firstName = (EditText) findViewById(R.id.firstName);
         lastName = (EditText) findViewById(R.id.lastName);
@@ -47,14 +68,14 @@ public class registerActivity extends AppCompatActivity {
         submitRegisterButton = (Button) findViewById(R.id.submitRegisterButton);
         registerBack = (Button) findViewById(R.id.registerBack);
 
-        databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("User");
+
 
 
         submitRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Register();
-                startActivity(new Intent(registerActivity.this, MainActivity.class));
+
 
 
             }
@@ -69,40 +90,45 @@ public class registerActivity extends AppCompatActivity {
     }
 
     private void Register(){
-        mAuth.createUserWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        final DocumentReference userz = db.collection("Users").document("kZZc534iJKvAAuhNvTIF");
+        final String Email = email.getText().toString();
+        final String Password = password.getText().toString();
+        mAuth.createUserWithEmailAndPassword(Email, Password).addOnCompleteListener(registerActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    final FirebaseUser user = task.getResult().getUser();
-                    if (user != null){
-                        mAuth.signInWithEmailAndPassword(email.getText().toString().trim(), password.getText().toString().trim()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
-                                    com.google.firebase.database.DatabaseReference databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference().child("Users");
-                                    databaseReference = databaseReference.child(user.getUid());
+                if(!task.isSuccessful()){
+                    Toast.makeText(registerActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
+                }else{
+                    String userId = mAuth.getCurrentUser().getUid();
+                    com.google.firebase.database.DatabaseReference databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference();
+                    databaseReference = databaseReference.child(userId);
 
-                                    UserModel userModel = new UserModel();
+                    UserModel userModel = new UserModel();
 
-                                    userModel.setFirstName(firstName.getText().toString().trim());
-                                    userModel.setLastName(lastName.getText().toString().trim());
-                                    userModel.setEmail(email.getText().toString().trim());
-                                    userModel.setPassword(password.getText().toString().trim());
-                                    userModel.setAge(age.getText().toString().trim());
-                                    userModel.setMinprice(minprice.getText().toString().trim());
-                                    userModel.setMaxprice(maxprice.getText().toString().trim());
-                                    userModel.setZip(zip.getText().toString().trim());
-                                    userModel.setBio(bio.getText().toString().trim());
-                                    userModel.setUrl("https://firebasestorage.googleapis.com/v0/b/room8-4357b.appspot.com/o/default.png?alt=media&token=b7864fc3-6e0b-4372-a2ed-5cf50bc8e703");
-                                    databaseReference.setValue(userModel);
-                                }
-                            }
-                        });
-                    }
-                }
+                    userModel.setFirstName(firstName.getText().toString().trim());
+                    userModel.setLastName(lastName.getText().toString().trim());
+                    userModel.setEmail(email.getText().toString().trim());
+                    userModel.setPassword(password.getText().toString().trim());
+                    userModel.setAge(age.getText().toString().trim());
+                    userModel.setMinprice(minprice.getText().toString().trim());
+                    userModel.setMaxprice(maxprice.getText().toString().trim());
+                    userModel.setZip(zip.getText().toString().trim());
+                    userModel.setBio(bio.getText().toString().trim());
+                    userModel.setUrl("https://firebasestorage.googleapis.com/v0/b/room8-4357b.appspot.com/o/default.png?alt=media&token=b7864fc3-6e0b-4372-a2ed-5cf50bc8e703");
+                    databaseReference.setValue(userModel);
+                                                                                          //  Map lol = new HashMap<>();                                                                   userInfo.put("Connections",temp);
+                                                                                            //lol.put("allUSERS",userId);
+                                                                                            userz.update("userLIST", FieldValue.arrayUnion(userId));
+
+
+
+
+
+    }
             }
         });
     }
+
 
     private boolean isEmailValid(String email) {
         return email.contains("@");
@@ -114,21 +140,19 @@ public class registerActivity extends AppCompatActivity {
 
 
 
-    public void AddData(){
-        String fName = firstName.getText().toString().trim();
-        String lName = lastName.getText().toString().trim();
-        String Email = email.getText().toString().trim();
-        String Pass = password.getText().toString().trim();
-        String Age = age.getText().toString().trim();
-        String MinPrice = minprice.getText().toString().trim();
-        String MaxPrice = maxprice.getText().toString().trim();
-        String Zip = zip.getText().toString().trim();
-        String Bio = bio.getText().toString().trim();
 
-        SaveData saveData = new SaveData(fName, lName, Email, Pass, Age, MinPrice, MaxPrice, Zip, Bio);
 
-        databaseReference.setValue(saveData);
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(firebaseAuthStateListener);
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        mAuth.removeAuthStateListener(firebaseAuthStateListener);
+    }
 }
+
