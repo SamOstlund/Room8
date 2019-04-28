@@ -5,13 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.content.Intent;
 import android.view.Menu;
@@ -33,10 +30,9 @@ import java.util.List;
 /*Match making process needs to be completed*/
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private Button logout, uploadImage;
+    private Button settingsButton;
     private userArrayAdapter arrayAdapter;
 
     private String currentUId;
@@ -58,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user == null){
+                if (user == null) {
                     Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
@@ -73,11 +69,9 @@ public class MainActivity extends AppCompatActivity {
         currentUId = mAuth.getUid();
 
 
-
         rowItems = new ArrayList<user>();
         getPotentialMatches();
-        arrayAdapter = new userArrayAdapter(this, R.layout.user_item, rowItems );
-
+        arrayAdapter = new userArrayAdapter(this, R.layout.user_item, rowItems);
 
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.card);
@@ -94,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onLeftCardExit(Object dataObject) {
 
-              user obj = (user) dataObject;
+                user obj = (user) dataObject;
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("Connections").child("NotLikes").child(currentUId).setValue(true);
                 Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
@@ -102,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-               user obj = (user) dataObject;
+                user obj = (user) dataObject;
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("Connections").child("Likes").child(currentUId).setValue(true);
-               // isConnectionMatch(userId);
+                // isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
             }
 
@@ -129,72 +123,73 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void getPotentialMatches(){
+    public void getPotentialMatches() {
 
-            usersDb.addChildEventListener(new ChildEventListener() {
-               final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(currentUId);
-                    @Override
-                    public void onChildAdded (DataSnapshot dataSnapshot, String s){
+        usersDb.addChildEventListener(new ChildEventListener() {
+            final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(currentUId);
 
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
-                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
-                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
-                            rowItems.add(item);
-                            arrayAdapter.notifyDataSetChanged();
-                        }
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                    }
-
-                    @Override
-                    public void onChildChanged (DataSnapshot dataSnapshot, String s){
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
-                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
-                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
-                            rowItems.add(item);
-                            arrayAdapter.notifyDataSetChanged();
-
-                        }
-
-                    }
-
-
-                    @Override
-                    public void onChildRemoved (DataSnapshot dataSnapshot){
-
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
-                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
-                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
-                            rowItems.add(item);
-                            arrayAdapter.notifyDataSetChanged();
-                        }
+                if (!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                    String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                    user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                    rowItems.add(item);
+                    arrayAdapter.notifyDataSetChanged();
                 }
 
-                    @Override
-                    public void onChildMoved (DataSnapshot dataSnapshot, String s){
+            }
 
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
-                            String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
-                            user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
-                            rowItems.add(item);
-                            arrayAdapter.notifyDataSetChanged();
-                        }
-                }
-
-                    @Override
-                    public void onCancelled (DatabaseError databaseError){
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                if (!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                    String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                    user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                    rowItems.add(item);
+                    arrayAdapter.notifyDataSetChanged();
 
                 }
 
-            });
+            }
+
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                if (!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                    String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                    user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                    rowItems.add(item);
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                if (!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                    String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+                    user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
+                    rowItems.add(item);
+                    arrayAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
 
     }
 
 
-
-    private void logOut(){
+    private void logOut() {
         mAuth.signOut();
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -207,61 +202,49 @@ public class MainActivity extends AppCompatActivity {
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
 
-    private void compressCreate()
-{
-    mTextMessage = findViewById(R.id.message);
-    BottomNavigationView navigation = findViewById(R.id.navigation);
-    Menu menu = navigation.getMenu();
+    private void compressCreate() {
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        Menu menu = navigation.getMenu();
 
-    //Setting up the navigation bar at the bottom to go to the correct page when clicked. I also highlight the chosen page so the user knows where they are in the app.
-    MenuItem menuItem = menu.getItem(1);
-    menuItem.setChecked(true);
-    navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            /* Switch that changes activity accordingly*/
+        //Setting up the navigation bar at the bottom to go to the correct page when clicked. I also highlight the chosen page so the user knows where they are in the app.
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                /* Switch that changes activity accordingly*/
 
-            switch(menuItem.getItemId())
-            {
-                case R.id.navigation_profile:
-                    Intent intent = new Intent(MainActivity.this, profileActivity.class);
-                    startActivity(intent);
-                    break;
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_profile:
+                        Intent intent = new Intent(MainActivity.this, profileActivity.class);
+                        startActivity(intent);
+                        break;
 
-                case R.id.navigation_home:
-                    break;
+                    case R.id.navigation_home:
+                        break;
 
-                case R.id.navigation_messaging:
-                    Intent intent3 = new Intent(MainActivity.this, messaging.class);
-                    startActivity(intent3);
-                    break;
+                    case R.id.navigation_messaging:
+                        Intent intent3 = new Intent(MainActivity.this, messaging.class);
+                        startActivity(intent3);
+                        break;
+                }
+
+                return false;
             }
-
-            return false;
-        }
-    });
+        });
 
 
-    logout = findViewById(R.id.logoutButton);
-    logout.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            logOut();
-        }
-    });
+        settingsButton = findViewById(R.id.settingsButtonMain);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, settingsActivity.class);
+                startActivity(intent);
+            }
+        });
 
-    uploadImage = findViewById(R.id.uploadButton);
-
-    uploadImage.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(MainActivity.this, uploadActivity.class));
-        }
-    });
-
-
-
-
+    }
 
 }
-}
+
+
