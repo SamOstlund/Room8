@@ -32,6 +32,12 @@
             android:text="Upload Picture" />
 
         <Button
+            android:id="@+id/homeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back to Home" />
+
+        <Button
             android:id="@+id/LogoutButtonSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

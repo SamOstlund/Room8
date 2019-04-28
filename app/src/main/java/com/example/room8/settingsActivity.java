@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class settingsActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private Button logoutButton, changeButton, uploadButton;
+    private Button logoutButton, changeButton, uploadButton, homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,9 @@ public class settingsActivity extends AppCompatActivity {
         logoutButton = findViewById(R.id.LogoutButtonSettings);
         changeButton = findViewById(R.id.InfoChangeButtonSettings);
         uploadButton = findViewById(R.id.UploadButtonSettings);
+        homeButton = findViewById(R.id.homeButton);
+
+
 
         logoutButton.setOnClickListener(new View.OnClickListener()
         {
@@ -49,6 +52,16 @@ public class settingsActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 Intent intent = new Intent(settingsActivity.this, uploadActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(settingsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

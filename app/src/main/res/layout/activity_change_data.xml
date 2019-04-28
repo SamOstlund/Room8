@@ -150,13 +150,13 @@
                         android:textColor="#000000" />
 
                     <Button
-                        android:id="@+id/submitRegisterButton"
+                        android:id="@+id/acceptChanges"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:text="Accept Changes" />
 
                     <Button
-                        android:id="@+id/registerBack"
+                        android:id="@+id/cancelChanges"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:text="@android:string/cancel" />

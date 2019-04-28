@@ -17,9 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class registerActivity extends AppCompatActivity {
 
@@ -29,7 +26,6 @@ public class registerActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    DatabaseReference databaseReference;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     @Override
@@ -61,8 +57,8 @@ public class registerActivity extends AppCompatActivity {
         maxprice = (EditText) findViewById(R.id.maxprice);
         zip = (EditText) findViewById(R.id.zip);
         bio = (EditText) findViewById(R.id.bio);
-        submitRegisterButton = (Button) findViewById(R.id.submitRegisterButton);
-        registerBack = (Button) findViewById(R.id.registerBack);
+        submitRegisterButton = (Button) findViewById(R.id.acceptChanges);
+        registerBack = (Button) findViewById(R.id.cancelChanges);
 
 
 
