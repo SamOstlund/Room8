@@ -17,7 +17,7 @@
         <activity android:name=".changeDataActivity"></activity>
         <activity android:name=".settingsActivity" />
         <activity android:name=".registerActivity" />
-        <activity android:name=".messaging" />
+        <activity android:name=".Matches.messaging" />
         <activity android:name=".uploadActivity" />
         <activity android:name=".profileActivity" />
         <activity android:name=".LoginActivity">
