@@ -5,13 +5,24 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.room8.MainActivity;
 import com.example.room8.R;
 import com.example.room8.profileActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -21,7 +32,9 @@ import com.example.room8.profileActivity;
 public class messaging extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-
+    private  RecyclerView.Adapter mAdapter;
+    private  RecyclerView.LayoutManager matchesMan;
+    private String currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +68,77 @@ public class messaging extends AppCompatActivity {
             }
         });
 
-/*
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setNestedScrollingEnabled(false);
         mRecyclerView.setHasFixedSize(true);
-*/
+        matchesMan = new LinearLayoutManager(messaging.this);
+        mRecyclerView.setLayoutManager(matchesMan);
+        mAdapter = new MatchesAdapter(getDataMatches(),messaging.this);
+        mRecyclerView.setAdapter(mAdapter);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d("getUse",currentUser);
+        getUserMatchId();
+      //  mAdapter.notifyDataSetChanged();
 
+    }
+
+    private void getUserMatchId() {
+        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference().child(currentUser).child("Connections").child("Matches");
+        matchDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()){
+                        for(DataSnapshot match: dataSnapshot.getChildren() ){
+                            FetchMatchInformation(match.getKey());
+                            Log.d("getUserMatch",match.getKey());
+                        }
+                    }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    private void FetchMatchInformation(String key) {
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child(key);
+        userDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    String userId = dataSnapshot.getKey();
+                    String name ;
+                    String profileImageUrl;
+
+                        name = dataSnapshot.child("firstName").getValue().toString();
+
+
+                        profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
+
+
+
+                    MatchesObject obj = new MatchesObject(userId, name, profileImageUrl);
+                    resultsMatches.add(obj);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+    private ArrayList<MatchesObject> resultsMatches = new ArrayList<MatchesObject>();
+    private List<MatchesObject> getDataMatches() {
+        return resultsMatches;
     }
 
 
