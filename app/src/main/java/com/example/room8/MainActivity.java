@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private Button logout, uploadImage;
+    private Button settingsButton;
     private userArrayAdapter arrayAdapter;
 
     private String currentUId;
@@ -242,20 +242,14 @@ public class MainActivity extends AppCompatActivity {
     });
 
 
-    logout = findViewById(R.id.logoutButton);
-    logout.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            logOut();
-        }
-    });
 
-    uploadImage = findViewById(R.id.uploadButton);
 
-    uploadImage.setOnClickListener(new View.OnClickListener() {
+    settingsButton = findViewById(R.id.settingsButtonMain);
+
+    settingsButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            startActivity(new Intent(MainActivity.this, uploadActivity.class));
+            startActivity(new Intent(MainActivity.this, settingsActivity.class));
         }
     });
 
