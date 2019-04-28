@@ -72,8 +72,8 @@ public class profileActivity extends AppCompatActivity
         nameBox = findViewById(R.id.nameBoxProfile);
         ageBox = findViewById(R.id.ageBox);
         bioBox = findViewById(R.id.bioBox);
-        nameIDBox = findViewById(R.id.nameIDBox);
-        ageIDBox = findViewById(R.id.ageIDBox);
+        //nameIDBox = findViewById(R.id.nameIDBox);
+        //ageIDBox = findViewById(R.id.ageIDBox);
         minIDBox = findViewById(R.id.minIDBox);
         minBox = findViewById(R.id.minBox);
         maxIDBox = findViewById(R.id.maxIDBox);
@@ -82,8 +82,8 @@ public class profileActivity extends AppCompatActivity
         userPIC = (ImageView) findViewById(R.id.profilePic);
 
         //Sets the text for the textViews that identify which category of information it is
-        nameIDBox.setText("Name: ");
-        ageIDBox.setText("Age: ");
+        //nameIDBox.setText("");
+        //ageIDBox.setText("Age: ");
         minIDBox.setText("Minimum: ");
         maxIDBox.setText("Maximum: ");
         bioIDBox.setText("Biography:");
