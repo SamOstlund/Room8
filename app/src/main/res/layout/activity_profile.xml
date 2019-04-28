@@ -113,7 +113,7 @@
 
     <TextView
         android:id="@+id/minBox"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="24dp"
         android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/minIDBox"
@@ -123,20 +123,19 @@
         android:id="@+id/maxIDBox"
         android:layout_width="70dp"
         android:layout_height="24dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="32dp"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/minBox"
-        app:layout_constraintTop_toBottomOf="@+id/ageIDBox" />
+        app:layout_constraintBottom_toTopOf="@+id/bioBox"
+        app:layout_constraintEnd_toStartOf="@+id/maxBox" />
 
     <TextView
         android:id="@+id/maxBox"
-        android:layout_width="40dp"
+        android:layout_width="80dp"
         android:layout_height="24dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/maxIDBox"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ageBox" />
 
     <TextView
