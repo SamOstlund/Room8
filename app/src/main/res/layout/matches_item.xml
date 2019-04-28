@@ -22,15 +22,15 @@
             android:paddingBottom="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:textColor="#000000"
             android:id="@+id/MatchName"/>
 
         <TextView
+            android:id="@+id/Matchid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:layout_gravity="center"
-            android:id="@+id/Matchid"/>
+            android:layout_height="1sp"
+            android:layout_gravity="center" />
     </LinearLayout>
 
 </LinearLayout>
