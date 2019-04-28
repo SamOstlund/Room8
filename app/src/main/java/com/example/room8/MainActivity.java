@@ -36,14 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private Button logout, uploadImage, dislikeButton, likeButton;
-    private CardView cardFrame;
-    private RecyclerView myRecycleView;
-    private SwipeFlingAdapterView myFlingView;
-
-
-
-    private List<user> possibleMatches;
+    private Button logout, uploadImage;
     private userArrayAdapter arrayAdapter;
 
     private String currentUId;
@@ -51,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference usersDb;
 
 
-    ListView listView;
     List<user> rowItems;
 
     @Override
@@ -60,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-    //    databaseReference = FirebaseDatabase.getInstance().getReference().child(mAuth.getUid());
         usersDb = FirebaseDatabase.getInstance().getReference();
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -77,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         };
         compressCreate();
 
-       // usersDb = FirebaseDatabase.getInstance().getReference().child("Users");
 
         mAuth = FirebaseAuth.getInstance();
         currentUId = mAuth.getUid();
@@ -271,10 +261,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    //MATCHMAKING
-    dislikeButton = findViewById(R.id.dislikeButton);
-    likeButton = findViewById(R.id.likeButton);
-   // myFlingView = findViewById(R.id.frame);
 
 
 }
