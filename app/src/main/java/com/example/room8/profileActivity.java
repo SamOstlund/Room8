@@ -108,7 +108,7 @@ public class profileActivity extends AppCompatActivity
                     if (dataSnapshot.child("bio").getValue() != null)
                         bioBox.setText(dataSnapshot.child("bio").getValue().toString());
                     if (dataSnapshot.child("minprice").getValue() != null) {
-                        String holder = "$" + dataSnapshot.child("minprice").getValue().toString() + "  -  ";
+                        String holder = "$" + dataSnapshot.child("minprice").getValue().toString() + "  --  ";
                         minBox.setText(holder);
                     }
                     if (dataSnapshot.child("maxprice").getValue() != null) {
