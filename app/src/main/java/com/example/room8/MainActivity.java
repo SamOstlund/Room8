@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextMessage;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
-    private Button settingsButton;
     private userArrayAdapter arrayAdapter;
 
     private String currentUId;
@@ -260,17 +259,6 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-
-
-
-    settingsButton = findViewById(R.id.settingsButtonMain);
-
-    settingsButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(MainActivity.this, settingsActivity.class));
-        }
-    });
 
 
 

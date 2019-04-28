@@ -61,7 +61,7 @@ public class settingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(settingsActivity.this, MainActivity.class);
+                Intent intent = new Intent(settingsActivity.this, profileActivity.class);
                 startActivity(intent);
             }
         });

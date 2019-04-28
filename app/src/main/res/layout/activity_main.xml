@@ -16,22 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navigation" />
 
-    <Button
-
-        android:id="@+id/settingsButtonMain"
-        style="?android:textAppearanceSmall"
-        android:layout_width="120dp"
-        android:layout_height="76dp"
-        android:text="Settings"
-        android:textStyle="bold"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/navigation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02" />
-
 
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         android:id="@+id/card"

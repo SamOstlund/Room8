@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ public class profileActivity extends AppCompatActivity
     private FirebaseUser loggedInUser;
     private TextView nameBox, ageBox, bioBox, nameIDBox, ageIDBox, minIDBox, minBox, maxIDBox, maxBox, bioIDBox;
     private ImageView userPIC;
+    private Button settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -72,21 +75,21 @@ public class profileActivity extends AppCompatActivity
         nameBox = findViewById(R.id.nameBoxProfile);
         ageBox = findViewById(R.id.ageBox);
         bioBox = findViewById(R.id.bioBox);
-        //nameIDBox = findViewById(R.id.nameIDBox);
-        //ageIDBox = findViewById(R.id.ageIDBox);
         minIDBox = findViewById(R.id.minIDBox);
         minBox = findViewById(R.id.minBox);
-        //maxIDBox = findViewById(R.id.maxIDBox);
         maxBox = findViewById(R.id.maxBox);
-        //bioIDBox = findViewById(R.id.bioIDBox);
         userPIC = (ImageView) findViewById(R.id.profilePic);
+        settings = findViewById(R.id.settingsButtonMain);
 
-        //Sets the text for the textViews that identify which category of information it is
-        //nameIDBox.setText("");
-        //ageIDBox.setText("Age: ");
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(profileActivity.this, settingsActivity.class));
+            }
+        });
+
         minIDBox.setText("Price Range: ");
-        //maxIDBox.setText(" - ");
-        //bioIDBox.setText("Biography:");
+
 
         //Getting firebase authentication and also getting the current user's unique ID
         mAuth = FirebaseAuth.getInstance();
