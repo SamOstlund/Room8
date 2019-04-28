@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private DatabaseReference databaseReference;
     private List<user> possibleMatches;
     private userArrayAdapter arrayAdapter;
 
