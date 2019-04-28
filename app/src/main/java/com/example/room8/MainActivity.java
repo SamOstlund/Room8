@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        usersDb = FirebaseDatabase.getInstance().getReference();
+        usersDb = FirebaseDatabase.getInstance().getReference("Users");
 
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                user obj = (user) dataObject;
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("Connections").child("Likes").child(currentUId).setValue(true);
-               // isConnectionMatch(userId);
+                isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
             }
 
@@ -126,11 +127,35 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    private void isConnectionMatch(final String userId) {
+        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("Connections").child("Likes").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Toast.makeText(MainActivity.this, "new Connection", Toast.LENGTH_LONG).show();
 
+                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+
+                    usersDb.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUId).setValue(true);
+                    usersDb.child(currentUId).child("Connections").child("Matches").child(userId).setValue(true);
+
+                    usersDb.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUId).child("ChatId").setValue(key);
+                    usersDb.child(currentUId).child("Connections").child("Matches").child(dataSnapshot.getKey()).child("ChatId").setValue(key);
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
     public void getPotentialMatches(){
 
             usersDb.addChildEventListener(new ChildEventListener() {
-               final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(currentUId);
+               final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(currentUId);
+
                     @Override
                     public void onChildAdded (DataSnapshot dataSnapshot, String s){
 

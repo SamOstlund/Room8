@@ -47,7 +47,7 @@ public class userArrayAdapter extends ArrayAdapter<user>{
         String userIDHolder;
 
         userIDHolder = card_item.getUserId();
-        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference().child(userIDHolder);
+        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userIDHolder);
 
         dbReference.addValueEventListener(new ValueEventListener() //this checks if there is information for each of the category of the profile and if there is information then it puts that data on the display
         {

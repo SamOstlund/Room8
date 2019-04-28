@@ -96,7 +96,7 @@ public class registerActivity extends AppCompatActivity {
                     Toast.makeText(registerActivity.this, "sign up error", Toast.LENGTH_SHORT).show();
                 }else{
                     String userId = mAuth.getCurrentUser().getUid();
-                    com.google.firebase.database.DatabaseReference databaseReference = com.google.firebase.database.FirebaseDatabase.getInstance().getReference();
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Users");
                     databaseReference = databaseReference.child(userId);
 
                     UserModel userModel = new UserModel();

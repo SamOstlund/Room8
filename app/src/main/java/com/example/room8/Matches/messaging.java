@@ -85,7 +85,7 @@ public class messaging extends AppCompatActivity {
     }
 
     private void getUserMatchId() {
-        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference().child(currentUser).child("Connections").child("Matches");
+        DatabaseReference matchDb = FirebaseDatabase.getInstance().getReference("Users").child(currentUser).child("Connections").child("Matches");
         matchDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,7 +105,7 @@ public class messaging extends AppCompatActivity {
 
     }
     private void FetchMatchInformation(String key) {
-        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference().child(key);
+        DatabaseReference userDb = FirebaseDatabase.getInstance().getReference("Users").child(key);
         userDb.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
