@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                user obj = (user) dataObject;
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("Connections").child("Likes").child(currentUId).setValue(true);
-               // isConnectionMatch(userId);
+               isConnectionMatch(userId);
                 Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
             }
 
@@ -128,7 +129,26 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    private void isConnectionMatch(final String userId) {
+        DatabaseReference currentUserConnectionsDb = usersDb.child(currentUId).child("Connections").child("Likes").child(userId);
+        currentUserConnectionsDb.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    Toast.makeText(MainActivity.this, "new Connection", Toast.LENGTH_LONG).show();
 
+                  //  String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+
+                    usersDb.child(dataSnapshot.getKey()).child("Connections").child("Matches").child(currentUId).setValue(true);
+                    usersDb.child(currentUId).child("Connections").child("Matches").child(userId).setValue(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
     public void getPotentialMatches(){
 
             usersDb.addChildEventListener(new ChildEventListener() {
