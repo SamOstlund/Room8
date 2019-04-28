@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
               user obj = (user) dataObject;
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("Connections").child("NotLikes").child(currentUId).setValue(true);
-                Toast.makeText(MainActivity.this, "Left", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Dislike", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 String userId = obj.getUserId();
                 usersDb.child(userId).child("Connections").child("Likes").child(currentUId).setValue(true);
                 isConnectionMatch(userId);
-                Toast.makeText(MainActivity.this, "Right", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Like", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChildAdded (DataSnapshot dataSnapshot, String s){
 
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId) && !dataSnapshot.getKey().equals(currentUId)) {
                             String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                             user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
                             rowItems.add(item);
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildChanged (DataSnapshot dataSnapshot, String s){
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId) && dataSnapshot.getKey().equals(currentUId)) {
                             String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                             user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
                             rowItems.add(item);
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChildRemoved (DataSnapshot dataSnapshot){
 
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId) && !dataSnapshot.getKey().equals(currentUId)) {
                             String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                             user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
                             rowItems.add(item);
@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onChildMoved (DataSnapshot dataSnapshot, String s){
 
-                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId)) {
+                        if(!dataSnapshot.child("Connections").child("NotLikes").hasChild(currentUId) && !dataSnapshot.child("Connections").child("Likes").hasChild(currentUId) && !dataSnapshot.getKey().equals(currentUId)) {
                             String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue().toString();
                             user item = new user(dataSnapshot.getKey(), dataSnapshot.child("firstName").getValue().toString(), profileImageUrl);
                             rowItems.add(item);
@@ -214,10 +214,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private void logOut(){
-        mAuth.signOut();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
-    }
     @Override
     protected void onStart() {
         super.onStart();
