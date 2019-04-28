@@ -72,6 +72,7 @@ public class uploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadImage();
+                startActivity(new Intent(uploadActivity.this, profileActivity.class));
             }
         });
 

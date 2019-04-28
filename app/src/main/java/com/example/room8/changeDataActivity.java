@@ -68,7 +68,7 @@ public class changeDataActivity extends AppCompatActivity {
                     maxHolder = dataSnapshot.child("maxprice").getValue().toString();
                     minHolder = dataSnapshot.child("minprice").getValue().toString();
                     bioHolder = dataSnapshot.child("bio").getValue().toString();
-                    URLHolder = dataSnapshot.child("url").getValue().toString();
+                    URLHolder = dataSnapshot.child("profileImageUrl").getValue().toString();
 
                 }
             }
@@ -183,6 +183,7 @@ public class changeDataActivity extends AppCompatActivity {
         updatedUser.setUrl(URLHolder);
 
         dbref.setValue(updatedUser);
+
         finish();
 
 
