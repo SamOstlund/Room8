@@ -76,17 +76,17 @@ public class profileActivity extends AppCompatActivity
         //ageIDBox = findViewById(R.id.ageIDBox);
         minIDBox = findViewById(R.id.minIDBox);
         minBox = findViewById(R.id.minBox);
-        maxIDBox = findViewById(R.id.maxIDBox);
+        //maxIDBox = findViewById(R.id.maxIDBox);
         maxBox = findViewById(R.id.maxBox);
-        bioIDBox = findViewById(R.id.bioIDBox);
+        //bioIDBox = findViewById(R.id.bioIDBox);
         userPIC = (ImageView) findViewById(R.id.profilePic);
 
         //Sets the text for the textViews that identify which category of information it is
         //nameIDBox.setText("");
         //ageIDBox.setText("Age: ");
-        minIDBox.setText("Minimum: ");
-        maxIDBox.setText("Maximum: ");
-        bioIDBox.setText("Biography:");
+        minIDBox.setText("Price Range: ");
+        //maxIDBox.setText(" - ");
+        //bioIDBox.setText("Biography:");
 
         //Getting firebase authentication and also getting the current user's unique ID
         mAuth = FirebaseAuth.getInstance();
@@ -108,7 +108,7 @@ public class profileActivity extends AppCompatActivity
                     if (dataSnapshot.child("bio").getValue() != null)
                         bioBox.setText(dataSnapshot.child("bio").getValue().toString());
                     if (dataSnapshot.child("minprice").getValue() != null) {
-                        String holder = "$" + dataSnapshot.child("minprice").getValue().toString();
+                        String holder = "$" + dataSnapshot.child("minprice").getValue().toString() + "  --  ";
                         minBox.setText(holder);
                     }
                     if (dataSnapshot.child("maxprice").getValue() != null) {

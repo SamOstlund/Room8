@@ -35,10 +35,10 @@
         android:id="@+id/nameBoxProfile"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:fontFamily="sans-serif-medium"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
         android:textColor="#000000"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/minBox"
@@ -48,77 +48,64 @@
 
     <TextView
         android:id="@+id/ageBox"
-        android:textSize="19sp"
         android:layout_width="29dp"
         android:layout_height="24dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="22dp"
         android:textColor="#000000"
+        android:textSize="19sp"
         app:layout_constraintStart_toEndOf="@id/nameBoxProfile"
         app:layout_constraintTop_toBottomOf="@id/constraintLayout" />
 
     <TextView
         android:id="@+id/bioBox"
-        android:layout_width="325dp"
-        android:layout_height="68dp"
+        android:layout_width="371dp"
+        android:layout_height="112dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.558"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.755" />
+        app:layout_constraintVertical_bias="0.602" />
 
 
     <TextView
         android:id="@+id/minIDBox"
-        android:layout_width="70dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="84dp"
+        android:textStyle="bold"
+        android:layout_width="85dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameBoxProfile" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
         android:id="@+id/minBox"
-        android:layout_width="80dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="60dp"
         android:textColor="#000000"
+        app:layout_constraintEnd_toStartOf="@+id/maxBox"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toEndOf="@+id/minIDBox"
-        app:layout_constraintTop_toBottomOf="@+id/nameBoxProfile" />
-
-    <TextView
-        android:id="@+id/maxIDBox"
-        android:layout_width="70dp"
-        android:layout_height="24dp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/bioBox"
-        app:layout_constraintEnd_toStartOf="@+id/maxBox" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
         android:id="@+id/maxBox"
         android:layout_width="80dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginRight="164dp"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ageBox" />
-
-    <TextView
-        android:id="@+id/bioIDBox"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/bioBox"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 
     <Button
